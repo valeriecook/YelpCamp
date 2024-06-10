@@ -1,0 +1,43 @@
+<% layout('layouts/boilerplate') %>
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="col-md-6 col-xl-4 mb-3">
+      <div class="card shadow">
+        <img class="card-img-top"src="https://res.cloudinary.com/dvqhsr5es/image/upload/v1717956771/YelpCamp/yu0grhnqkzpnj1xu60y1.jpg" alt="">
+        <div class="card-body">
+          <h5 class="'card-title">Register</h5>
+          <form action="/register" class="validated-form" novalidate method="POST">
+  <div class="mb-3">
+    <label class="form-label" for="username">Username</label>
+    <input
+      class="form-control"
+      type="text"
+      id="username"
+      name="username"
+      required
+      autofocus
+    />
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="email">Email</label>
+    <input class="form-control" type="email" id="email" name="email" required />
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="password">Password</label>
+    <input
+      class="form-control"
+      type="password"
+      id="password"
+      name="password"
+      required
+    />
+  </div>
+              <div class="d-grid gap-2">
+              <button class="btn btn-success">Register</button>
+            </div>
+</form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
