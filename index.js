@@ -57,6 +57,8 @@ store.on("error", function (e) {
   console.log("SESSION STORE ERROR", e);
 });
 
+app.set("trust proxy", 1); // trust first proxy
+
 const sessionConfig = {
   store,
   name: "session",
@@ -70,6 +72,7 @@ const sessionConfig = {
     maxAge: 1000 * 60 * 60 * 24 * 7
   }
 };
+
 app.use(session(sessionConfig));
 app.use(flash());
 app.use(helmet());
