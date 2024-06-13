@@ -3,6 +3,7 @@
 <div class="row">
   <div class="col-6">
     <div id="campgroundCarousel" class="carousel slide">
+      <% if ( campground.images.length > 1 ) { %>
         <div class="carousel-indicators">
           <% campground.images.forEach((img, i) => { %>
           <button
@@ -15,6 +16,7 @@
         </button>
           <% }) %>
         </div>
+        <% } %>
       <div class="carousel-inner">
         <% campground.images.forEach((img, i) => { %>
         <div class="carousel-item <%= i === 0 ? "active" : "" %>">
