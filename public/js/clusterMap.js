@@ -66,7 +66,7 @@ map.on("load", () => {
     filter: ["!", ["has", "point_count"]],
     paint: {
       "circle-color": "#11b4da",
-      "circle-radius": 4,
+      "circle-radius": 5,
       "circle-stroke-width": 1,
       "circle-stroke-color": "#fff"
     }
@@ -90,11 +90,15 @@ map.on("load", () => {
       });
   });
 
-  // When a click event occurs on a feature in
+  // Create a popup, but don't add it to the map yet.
+  const popup = new mapboxgl.Popup({ closeButton: false, closeOnClick: false });
+
+  // When a mouseenter event occurs on a feature in
   // the unclustered-point layer, open a popup at
   // the location of the feature, with
   // description HTML from its properties.
-  map.on("click", "unclustered-point", (e) => {
+  map.on("mouseenter", "unclustered-point", (e) => {
+    map.getCanvas().style.cursor = "pointer";
     const { popupMarkup } = e.features[0].properties;
     const coordinates = e.features[0].geometry.coordinates.slice();
     // Ensure that if the map is zoomed out such that
@@ -103,8 +107,15 @@ map.on("load", () => {
     while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
       coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
     }
-
-    new mapboxgl.Popup().setLngLat(coordinates).setHTML(popupMarkup).addTo(map);
+    popup.setLngLat(coordinates).setHTML(popupMarkup).addTo(map);
+  });
+  map.on("mouseleave", "unclustered-point", () => {
+    map.getCanvas().style.cursor = "";
+    popup.remove();
+  });
+  map.on("click", "unclustered-point", () => {
+    const link = document.querySelector(".mapboxgl-popup a");
+    window.open(link.getAttribute("href"));
   });
 
   map.on("mouseenter", "clusters", () => {
